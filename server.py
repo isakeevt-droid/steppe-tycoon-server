@@ -2,7 +2,24 @@ from flask import Flask, request, jsonify
 import sqlite3
 
 app = Flask(__name__)
+import sqlite3
 
+def init_db():
+    conn = sqlite3.connect("steppe_tycoon.db")
+    c = conn.cursor()
+
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY,
+        money INTEGER,
+        level INTEGER
+    )
+    """)
+
+    conn.commit()
+    conn.close()
+
+init_db()
 def get_db():
     conn = sqlite3.connect("game.db")
     conn.row_factory = sqlite3.Row
