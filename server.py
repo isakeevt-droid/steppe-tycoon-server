@@ -7,7 +7,9 @@ def get_db():
     conn = sqlite3.connect("game.db")
     conn.row_factory = sqlite3.Row
     return conn
-
+@app.route("/")
+def home():
+    return "Steppe Tycoon API works"
 @app.route("/get/<user_id>")
 def get_user(user_id):
     db = get_db()
