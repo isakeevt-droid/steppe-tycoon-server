@@ -21,9 +21,18 @@ def init_db():
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id TEXT PRIMARY KEY,
+            money INTEGER DEFAULT 0,
+            level INTEGER DEFAULT 1
+        )
+    """)
+    conn.commit()
+
     return conn
 
-init_db()
 
 @app.route("/")
 def home():
